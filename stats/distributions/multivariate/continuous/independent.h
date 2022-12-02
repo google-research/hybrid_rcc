@@ -20,9 +20,9 @@
 #include <memory>
 #include <random>
 
-#include "hybrid_rcc/stats/distributions/multivariate/multivariate.h"
-#include "hybrid_rcc/stats/distributions/probability_distribution.h"
-#include "hybrid_rcc/stats/random_number_generator/stl_urbg.h"
+#include "stats/distributions/multivariate/multivariate.h"
+#include "stats/distributions/probability_distribution.h"
+#include "stats/random_number_generator/stl_urbg.h"
 
 namespace stats::multivariates {
 template <typename Distribution>

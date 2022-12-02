@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "hybrid_rcc/stats/distributions/univariate/continuous/gaussian.h"
+#include "stats/distributions/univariate/continuous/gaussian.h"
 
 #include <cmath>
 #include <iostream>
 #include <limits>
 
-#include "eigen3/unsupported/Eigen/SpecialFunctions"
+#include "third_party/eigen3/unsupported/Eigen/SpecialFunctions"
 
 namespace stats::univariates {
 Gaussian::Gaussian(double mu, double std) {

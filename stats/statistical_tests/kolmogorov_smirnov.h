@@ -25,10 +25,10 @@
 #include <numeric>
 #include <vector>
 
-#include "hybrid_rcc/stats/distributions/multivariate/multivariate.h"
-#include "hybrid_rcc/stats/distributions/probability_distribution.h"
-#include "hybrid_rcc/stats/distributions/univariate/univariate.h"
-#include "eigen3/Eigen/Core"
+#include "stats/distributions/multivariate/multivariate.h"
+#include "stats/distributions/probability_distribution.h"
+#include "stats/distributions/univariate/univariate.h"
+#include "third_party/eigen3/Eigen/Core"
 
 namespace stats {
 const double KS_95 =

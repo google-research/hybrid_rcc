@@ -24,8 +24,8 @@
 #include <random>
 #include <utility>
 
-#include "hybrid_rcc/stats/distributions/univariate/continuous/gaussian.h"
-#include "hybrid_rcc/stats/random_number_generator/random_number_generator.h"
+#include "stats/distributions/univariate/continuous/gaussian.h"
+#include "stats/random_number_generator/random_number_generator.h"
 
 namespace stats::univariates {
 class TruncatedGaussian : public Gaussian {

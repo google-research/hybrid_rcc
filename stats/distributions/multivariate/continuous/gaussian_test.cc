@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "hybrid_rcc/stats/distributions/multivariate/continuous/gaussian.h"
+#include "stats/distributions/multivariate/continuous/gaussian.h"
 
 #include <math.h>
 
@@ -26,10 +26,10 @@
 #include <utility>
 #include <vector>
 
-#include "hybrid_rcc/stats/statistical_tests/kolmogorov_smirnov.h"
+#include "stats/statistical_tests/kolmogorov_smirnov.h"
 #include "testing/base/public/gmock.h"
 #include "testing/base/public/gunit.h"
-#include "pcg_random/include/pcg_random.hpp"
+#include "third_party/pcg_random/include/pcg_random.hpp"
 
 class GaussianTest : public ::testing::Test {
  protected:

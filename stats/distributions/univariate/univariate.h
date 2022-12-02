@@ -21,7 +21,7 @@
 #include <tuple>
 #include <vector>
 
-#include "eigen3/Eigen/Core"
+#include "third_party/eigen3/Eigen/Core"
 
 namespace stats {
 class ContinuousSingleVariable{

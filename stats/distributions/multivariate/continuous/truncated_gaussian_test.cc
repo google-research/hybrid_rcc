@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "hybrid_rcc/stats/distributions/multivariate/continuous/truncated_gaussian.h"
+#include "stats/distributions/multivariate/continuous/truncated_gaussian.h"
 
 #include <cassert>
 #include <iostream>
 
 #include "testing/base/public/gmock.h"
 #include "testing/base/public/gunit.h"
-#include "eigen3/Eigen/Core"
+#include "third_party/eigen3/Eigen/Core"
 
 class DistributionTest {
  public:

@@ -22,9 +22,9 @@
 #include <random>
 #include <utility>
 
-#include "hybrid_rcc/stats/distributions/multivariate/continuous/independent.h"
-#include "hybrid_rcc/stats/distributions/univariate/continuous/uniform.h"
-#include "eigen3/Eigen/Core"
+#include "stats/distributions/multivariate/continuous/independent.h"
+#include "stats/distributions/univariate/continuous/uniform.h"
+#include "third_party/eigen3/Eigen/Core"
 
 namespace stats::multivariates {
 class IndependentUniform

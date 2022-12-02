@@ -25,8 +25,8 @@
 #include <typeinfo>
 #include <vector>
 
-#include "hybrid_rcc/stats/random_number_generator/random_number_generator.h"
-#include "eigen3/Eigen/Core"
+#include "stats/random_number_generator/random_number_generator.h"
+#include "third_party/eigen3/Eigen/Core"
 
 namespace stats {
 template <typename RNG, typename Distribution>

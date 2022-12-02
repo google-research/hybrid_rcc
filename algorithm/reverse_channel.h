@@ -26,14 +26,14 @@
 #include <tuple>
 #include <utility>
 
-#include "hybrid_rcc/algorithm/helper.h"
-#include "hybrid_rcc/stats/distributions/multivariate/continuous/gaussian.h"
-#include "hybrid_rcc/stats/distributions/multivariate/continuous/truncated_gaussian.h"
-#include "hybrid_rcc/stats/distributions/multivariate/continuous/uniform.h"
-#include "hybrid_rcc/stats/distributions/multivariate/multivariate.h"
-#include "hybrid_rcc/stats/distributions/probability_distribution.h"
-#include "eigen3/Eigen/Core"
-#include "pcg_random/include/pcg_random.hpp"
+#include "algorithm/helper.h"
+#include "stats/distributions/multivariate/continuous/gaussian.h"
+#include "stats/distributions/multivariate/continuous/truncated_gaussian.h"
+#include "stats/distributions/multivariate/continuous/uniform.h"
+#include "stats/distributions/multivariate/multivariate.h"
+#include "stats/distributions/probability_distribution.h"
+#include "third_party/eigen3/Eigen/Core"
+#include "third_party/pcg_random/include/pcg_random.hpp"
 
 namespace rcc {
 namespace algorithm {

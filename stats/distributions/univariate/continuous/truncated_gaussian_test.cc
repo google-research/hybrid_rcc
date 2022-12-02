@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "hybrid_rcc/stats/distributions/univariate/continuous/truncated_gaussian.h"
+#include "stats/distributions/univariate/continuous/truncated_gaussian.h"
 
 #include <math.h>
 
@@ -21,10 +21,10 @@
 #include <cstdint>
 #include <utility>
 
-#include "hybrid_rcc/stats/statistical_tests/kolmogorov_smirnov.h"
+#include "stats/statistical_tests/kolmogorov_smirnov.h"
 #include "testing/base/public/gmock.h"
 #include "testing/base/public/gunit.h"
-#include "pcg_random/include/pcg_random.hpp"
+#include "third_party/pcg_random/include/pcg_random.hpp"
 namespace stats {
 namespace univariates {
 namespace {

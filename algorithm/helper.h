@@ -23,8 +23,8 @@
 #include <memory>
 #include <cmath>
 
-#include "hybrid_rcc/stats/distributions/multivariate/multivariate.h"
-#include "hybrid_rcc/stats/distributions/probability_distribution.h"
+#include "stats/distributions/multivariate/multivariate.h"
+#include "stats/distributions/probability_distribution.h"
 
 #ifdef __STDCPP_MATH_SPEC_FUNCS__
 using std::riemann_zeta;

@@ -21,10 +21,10 @@
 #include <random>
 #include <tuple>
 
-#include "hybrid_rcc/stats/distributions/probability_distribution.h"
-#include "hybrid_rcc/stats/distributions/univariate/univariate.h"
-#include "hybrid_rcc/stats/random_number_generator/stl_urbg.h"
-#include "eigen3/Eigen/Core"
+#include "stats/distributions/probability_distribution.h"
+#include "stats/distributions/univariate/univariate.h"
+#include "stats/random_number_generator/stl_urbg.h"
+#include "third_party/eigen3/Eigen/Core"
 
 namespace stats::univariates {
 class Gaussian : public ProbabilityDistribution<ContinuousSingleVariable> {

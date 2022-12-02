@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "hybrid_rcc/stats/distributions/multivariate/continuous/uniform.h"
+#include "stats/distributions/multivariate/continuous/uniform.h"
 
 #include "testing/base/public/gmock.h"
 #include "testing/base/public/gunit.h"

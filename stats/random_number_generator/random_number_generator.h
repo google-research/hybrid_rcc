@@ -19,7 +19,7 @@
 #include <cstdint>
 #include <functional>
 #include <tuple>
-#include "eigen3/Eigen/Core"
+#include "third_party/eigen3/Eigen/Core"
 
 namespace stats {
 class RandomNumberGenerator {
