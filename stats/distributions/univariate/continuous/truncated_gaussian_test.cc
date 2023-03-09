@@ -24,7 +24,7 @@
 #include "stats/statistical_tests/kolmogorov_smirnov.h"
 #include "testing/base/public/gmock.h"
 #include "testing/base/public/gunit.h"
-#include "third_party/pcg_random/include/pcg_random.hpp"
+#include <pcg_random.hpp>
 namespace stats {
 namespace univariates {
 namespace {

@@ -19,7 +19,7 @@
 
 #include "testing/base/public/gmock.h"
 #include "testing/base/public/gunit.h"
-#include "third_party/eigen3/Eigen/Core"
+#include <Eigen/Core>
 
 class DistributionTest {
  public:

@@ -32,8 +32,8 @@
 #include "stats/distributions/multivariate/continuous/uniform.h"
 #include "stats/distributions/multivariate/multivariate.h"
 #include "stats/distributions/probability_distribution.h"
-#include "third_party/eigen3/Eigen/Core"
-#include "third_party/pcg_random/include/pcg_random.hpp"
+#include <Eigen/Core>
+#include <pcg_random.hpp>
 
 namespace rcc {
 namespace algorithm {

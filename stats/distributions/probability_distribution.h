@@ -17,6 +17,7 @@
 #ifndef THIRD_PARTY_HYBRID_RCC_STATS_DISTRIBUTIONS_PROBABILITY_DISTRIBUTION_H_
 #define THIRD_PARTY_HYBRID_RCC_STATS_DISTRIBUTIONS_PROBABILITY_DISTRIBUTION_H_
 #include <cmath>
+#include <memory>
 #include <random>
 #include <tuple>
 #include <vector>
