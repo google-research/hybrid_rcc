@@ -1,3 +1,7 @@
+build/
+extern/
 .vscode/
 *.o
 *.gch
+*.so
+*.egg-info/
