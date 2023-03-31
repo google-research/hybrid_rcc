@@ -17,8 +17,9 @@
 #include <cmath>
 #include <iostream>
 #include <limits>
+#include <memory>
 
-#include "third_party/eigen3/unsupported/Eigen/SpecialFunctions"
+#include "unsupported/Eigen/SpecialFunctions"
 
 namespace stats::univariates {
 Gaussian::Gaussian(double mu, double std) {

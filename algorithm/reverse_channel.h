@@ -17,8 +17,9 @@
 #ifndef THIRD_PARTY_HYBRID_RCC_ALGORITHM_REVERSE_CHANNEL_H_
 #define THIRD_PARTY_HYBRID_RCC_ALGORITHM_REVERSE_CHANNEL_H_
 
+#include <math.h>
+
 #include <cassert>
-#include <cmath>
 #include <cstdint>
 #include <iostream>
 #include <ostream>
@@ -26,14 +27,14 @@
 #include <tuple>
 #include <utility>
 
+#include "Eigen/Core"
 #include "algorithm/helper.h"
 #include "stats/distributions/multivariate/continuous/gaussian.h"
 #include "stats/distributions/multivariate/continuous/truncated_gaussian.h"
 #include "stats/distributions/multivariate/continuous/uniform.h"
 #include "stats/distributions/multivariate/multivariate.h"
 #include "stats/distributions/probability_distribution.h"
-#include "third_party/eigen3/Eigen/Core"
-#include "third_party/pcg_random/include/pcg_random.hpp"
+#include "include/pcg_random.hpp"
 
 namespace rcc {
 namespace algorithm {
@@ -56,8 +57,9 @@ std::tuple<Eigen::ArrayXd, int, Eigen::ArrayXd, int> sample_hybrid_pfr(
   Eigen::ArrayXd c = (q_support_a + q_support_b) / 2.0;
   c = c.max(0.5).min(M - 0.5);
   if (verbose) {
-    std::cerr << q_a.transpose() << "\t" << q_b.transpose() << "\t"
-              << c.transpose() << std::endl;
+    std::cerr << "q_a=" << q_a.transpose().format(eigen_format()) << "\t q_b="
+              << q_b.transpose().format(eigen_format()) << "\t c="
+              << c.transpose().format(eigen_format()) << std::endl;
   }
 
   // apply reverse channel coding
@@ -81,12 +83,14 @@ std::tuple<Eigen::ArrayXd, int, Eigen::ArrayXd, int> sample_hybrid_pfr(
     Eigen::ArrayXd q_phi_logpdf = q.logpdf(phi) + (-p.logpdf(phi) - logM);
     double s_ = std::log(t) - q_phi_logpdf.sum();
     if (verbose) {
-      std::cerr << "u " << u.transpose() << " k_ " << k_.transpose() << " y_ "
-                << y_.transpose() << std::endl;
+      std::cerr << "u " << u.transpose().format(eigen_format()) << " k_ "
+                << k_.transpose().format(eigen_format()) << " y_ "
+                << y_.transpose().format(eigen_format()) << std::endl;
       std::cerr << "t = " << t << " s_ = " << s_
-                << ": phi = " << phi.transpose() << ", p.pdf "
-                << p.pdf(phi).transpose() << ", q.pdf "
-                << q.pdf(phi).transpose() << ", M = " << M.transpose()
+                << ": phi = " << phi.transpose().format(eigen_format())
+                << ", p.pdf " << p.pdf(phi).transpose().format(eigen_format())
+                << ", q.pdf " << q.pdf(phi).transpose().format(eigen_format())
+                << ", M = " << M.transpose().format(eigen_format())
                 << std::endl;
     }
     // accept/reject candidate
@@ -123,8 +127,9 @@ std::tuple<Eigen::ArrayXd, int, Eigen::ArrayXd, int> sample_hybrid_sis(
   Eigen::ArrayXd c = (q_support_a + q_support_b) / 2.0;
   c = c.max(0.5).min(M - 0.5);
   if (verbose) {
-    std::cerr << q_a.transpose() << "\t" << q_b.transpose() << "\t"
-              << c.transpose() << std::endl;
+    std::cerr << "q_a=" << q_a.transpose().format(eigen_format()) << "\tq_b="
+              << q_b.transpose().format(eigen_format()) << "\tc="
+              << c.transpose().format(eigen_format()) << std::endl;
   }
 
   // apply reverse channel coding
@@ -149,12 +154,15 @@ std::tuple<Eigen::ArrayXd, int, Eigen::ArrayXd, int> sample_hybrid_sis(
     Eigen::ArrayXd q_phi_logpdf = q.logpdf(phi) + (-p.logpdf(phi) - logM);
     double s_ = std::log(t) - q_phi_logpdf.sum();
     if (verbose) {
-      std::cerr << i << "/" << N_max << ": u " << u.transpose() << " k_ "
-                << k_.transpose() << " y_ " << y_.transpose() << std::endl;
+      std::cerr << i << "/" << N_max << ": u "
+                << u.transpose().format(eigen_format()) << " k_ "
+                << k_.transpose().format(eigen_format()) << " y_ "
+                << y_.transpose().format(eigen_format()) << std::endl;
       std::cerr << "t = " << t << " s_ = " << s_
-                << ": phi = " << phi.transpose() << ", p.pdf "
-                << p.pdf(phi).transpose() << ", q.pdf "
-                << q.pdf(phi).transpose() << ", M = " << M.transpose()
+                << ": phi = " << phi.transpose().format(eigen_format())
+                << ", p.pdf " << p.pdf(phi).transpose().format(eigen_format())
+                << ", q.pdf " << q.pdf(phi).transpose().format(eigen_format())
+                << ", M = " << M.transpose().format(eigen_format())
                 << std::endl;
     }
     // accept/reject candidate
@@ -177,7 +185,7 @@ inline Eigen::ArrayXd decode_hybrid(
     int n, const Eigen::ArrayXd &k, const Eigen::ArrayXd &M,
     stats::ProbabilityDistribution<stats::ContinuousMultiVariable> &p, int dim,
     AdvanceURBG urbg) {
-  urbg.advance(n * (dim + 1LL));
+  urbg.advance(n * dim);
   stats::multivariates::IndependentUniform U(dim);
   auto rng = U.make_rng(urbg);
   Eigen::ArrayXd u = U.rvs(rng);
@@ -204,8 +212,9 @@ std::tuple<Eigen::ArrayXd, int, int> sample_sis(
     Eigen::ArrayXd u = U.rvs(rng);
     Eigen::ArrayXd z = p.ppf(u);
     if (verbose) {
-      std::cerr << n << "/" << N_max << ": " << u.transpose() << "\t"
-                << z.transpose() << std::endl;
+      std::cerr << n << "/" << N_max << ": "
+                << u.transpose().format(eigen_format()) << "\t"
+                << z.transpose().format(eigen_format()) << std::endl;
     }
 
     double w = N_max / static_cast<double>(N_max - n);
@@ -247,8 +256,8 @@ std::tuple<Eigen::ArrayXd, int, int> sample_pfr(
     Eigen::ArrayXd z_ = p.ppf(u);
 
     if (verbose) {
-      std::cerr << i << ": " << u.transpose() << "\t" << z_.transpose()
-                << std::endl;
+      std::cerr << i << ": " << u.transpose().format(eigen_format()) << "\t"
+                << z_.transpose().format(eigen_format()) << std::endl;
     }
     t += exponential(urbg);
     double s_ = std::log(t) + p.logpdf(z_).sum() - q.logpdf(z_).sum();

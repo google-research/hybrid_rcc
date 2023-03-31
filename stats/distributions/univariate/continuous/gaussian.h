@@ -18,13 +18,14 @@
 #define THIRD_PARTY_HYBRID_RCC_STATS_DISTRIBUTIONS_UNIVARIATE_CONTINUOUS_GAUSSIAN_H_
 
 #include <cmath>
+#include <memory>
 #include <random>
 #include <tuple>
 
+#include "Eigen/Core"
 #include "stats/distributions/probability_distribution.h"
 #include "stats/distributions/univariate/univariate.h"
 #include "stats/random_number_generator/stl_urbg.h"
-#include "third_party/eigen3/Eigen/Core"
 
 namespace stats::univariates {
 class Gaussian : public ProbabilityDistribution<ContinuousSingleVariable> {

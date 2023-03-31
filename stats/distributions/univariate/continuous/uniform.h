@@ -20,12 +20,13 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <memory>
 #include <random>
 
+#include "Eigen/Core"
 #include "stats/distributions/probability_distribution.h"
 #include "stats/distributions/univariate/univariate.h"
 #include "stats/random_number_generator/stl_urbg.h"
-#include "third_party/eigen3/Eigen/Core"
 
 namespace stats::univariates {
 class Uniform : public ProbabilityDistribution<ContinuousSingleVariable> {

@@ -25,7 +25,7 @@
 
 #include "stats/distributions/multivariate/continuous/independent.h"
 #include "stats/distributions/univariate/continuous/gaussian.h"
-#include "third_party/eigen3/Eigen/Core"
+#include "Eigen/Core"
 
 namespace stats::multivariates {
 class IndependentGaussian

@@ -26,7 +26,7 @@
 #include <vector>
 
 #include "stats/random_number_generator/random_number_generator.h"
-#include "third_party/eigen3/Eigen/Core"
+#include "Eigen/Core"
 
 namespace stats {
 template <typename RNG, typename Distribution>

@@ -17,11 +17,12 @@
 #ifndef THIRD_PARTY_HYBRID_RCC_ALGORITHM_HELPER_H_
 #define THIRD_PARTY_HYBRID_RCC_ALGORITHM_HELPER_H_
 
+#include <math.h>
+
 #include <algorithm>
 #include <iostream>
 #include <limits>
 #include <memory>
-#include <cmath>
 
 #include "stats/distributions/multivariate/multivariate.h"
 #include "stats/distributions/probability_distribution.h"
@@ -141,5 +142,7 @@ inline Eigen::ArrayXd linspace(double s, double e, int m) {
   return X;
 }
 }  // namespace internal
+
+Eigen::IOFormat eigen_format();
 }  // namespace rcc
 #endif  // THIRD_PARTY_HYBRID_RCC_ALGORITHM_HELPER_H_
