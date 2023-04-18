@@ -23,15 +23,17 @@ cpp_libraries = {
     'pcg_random': 'https://www.pcg-random.org/downloads/pcg-cpp-0.98.zip',
 }
 
+_THIRD_PARTY = '_third_party_'
+
 
 def _install(cmd, args):
-  os.mkdir('third_party')
+  os.mkdir(_THIRD_PARTY)
   for library, url in cpp_libraries.items():
-    subprocess.check_call(f'wget -O third_party/{library}.zip {url}'.split())
-    with zipfile.ZipFile(f'third_party/{library}.zip', 'r') as f:
-      f.extractall('third_party')
+    subprocess.check_call(f'wget -O {_THIRD_PARTY}/{library}.zip {url}'.split())
+    with zipfile.ZipFile(f'{_THIRD_PARTY}/{library}.zip', 'r') as f:
+      f.extractall(_THIRD_PARTY)
   cmd(*args)
-  shutil.rmtree('third_party')
+  shutil.rmtree(_THIRD_PARTY)
 
 
 class InstallCommand(install):
@@ -57,7 +59,11 @@ class EggInfoCommand(egg_info):
 hybrid_rcc_module = Pybind11Extension(
     'hybrid_rcc',
     [str(fname) for fname in pathlib.Path('src').rglob('*.cc')],
-    include_dirs=['src', 'third_party/eigen-3.4.0', 'third_party/pcg-cpp-0.98'],
+    include_dirs=[
+        'src',
+        f'{_THIRD_PARTY}/eigen-3.4.0',
+        f'{_THIRD_PARTY}/pcg-cpp-0.98',
+    ],
     extra_compile_args=['-O3'],
 )
 
