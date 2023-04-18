@@ -47,7 +47,11 @@ setup(
     version=0.1,
     author='Noureldin Yosri',
     ext_modules=[hybrid_rcc_module],
-    cmdclass={'install': InstallCommand},
+    cmdclass={
+        'install': InstallCommand,
+        'develop': InstallCommand,
+        'egg_info': InstallCommand,
+    },
     install_requires=[
         'numpy',
         'scipy',
