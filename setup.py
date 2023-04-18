@@ -5,7 +5,6 @@ import subprocess
 import zipfile
 
 from setuptools import setup
-import setuptools.command.build_ext
 
 try:
   from pybind11.setup_helpers import Pybind11Extension, build_ext
