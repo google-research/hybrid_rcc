@@ -6,6 +6,8 @@ import zipfile
 
 from setuptools import setup
 from setuptools.command.install import install
+from setuptools.command.develop import develop
+from setuptools.command.egg_info import egg_info
 
 try:
   from pybind11.setup_helpers import Pybind11Extension
@@ -22,17 +24,34 @@ cpp_libraries = {
 }
 
 
+def _install(cmd, args):
+  os.mkdir('third_party')
+  for library, url in cpp_libraries.items():
+    subprocess.check_call(f'wget -O third_party/{library}.zip {url}'.split())
+    with zipfile.ZipFile(f'third_party/{library}.zip', 'r') as f:
+      f.extractall('third_party')
+  cmd(*args)
+  shutil.rmtree('third_party')
+
+
 class InstallCommand(install):
+  """Installation Command."""
+  def run(self):
+    _install(install.do_egg_install, [self])
+
+
+class DevelopCommand(develop):
   """Installation Command."""
 
   def run(self):
-    os.mkdir('third_party')
-    for library, url in cpp_libraries.items():
-      subprocess.check_call(f'wget -O third_party/{library}.zip {url}'.split())
-      with zipfile.ZipFile(f'third_party/{library}.zip', 'r') as f:
-        f.extractall('third_party')
-    install.do_egg_install(self)
-    shutil.rmtree('third_party')
+    _install(develop.run, [self])
+
+
+class EggInfoCommand(egg_info):
+  """Installation Command."""
+
+  def run(self):
+    _install(egg_info.run, [self])
 
 
 hybrid_rcc_module = Pybind11Extension(
@@ -49,8 +68,8 @@ setup(
     ext_modules=[hybrid_rcc_module],
     cmdclass={
         'install': InstallCommand,
-        'develop': InstallCommand,
-        'egg_info': InstallCommand,
+        'develop': DevelopCommand,
+        'egg_info': EggInfoCommand,
     },
     install_requires=[
         'numpy',
