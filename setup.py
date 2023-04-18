@@ -5,9 +5,7 @@ import subprocess
 import zipfile
 
 from setuptools import setup
-from setuptools.command.install import install
-from setuptools.command.develop import develop
-from setuptools.command.egg_info import egg_info
+from distutils.command.install import install
 
 try:
   from pybind11.setup_helpers import Pybind11Extension
@@ -43,22 +41,8 @@ def _install(cmd, args):
 class InstallCommand(install):
   """Installation Command."""
   def run(self):
-    _install(install.do_egg_install, [self])
-
-
-class DevelopCommand(develop):
-  """Installation Command."""
-
-  def run(self):
-    _install(develop.run, [self])
-
-
-class EggInfoCommand(egg_info):
-  """EggInfo Command."""
-
-  def run(self):
-    self.run_command('install')
-    egg_info.run(self)
+    # _install(install.do_egg_install, [self])
+    _install(distutils_install.run, [self])
 
 
 hybrid_rcc_module = Pybind11Extension(
@@ -79,7 +63,6 @@ setup(
     ext_modules=[hybrid_rcc_module],
     cmdclass={
         'install': InstallCommand,
-        'egg_info': EggInfoCommand,
     },
     install_requires=[
         'numpy',
