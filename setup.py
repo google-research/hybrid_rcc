@@ -57,9 +57,11 @@ setup(
     cmdclass={
         'build_ext': BuildExtCommand,
     },
+    setup_requires=[
+        'pybind11',        
+    ],
     install_requires=[
         'numpy',
         'scipy',
-        'pybind11',
     ],
 )
