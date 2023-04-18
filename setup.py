@@ -57,15 +57,7 @@ class EggInfoCommand(egg_info):
   """EggInfo Command."""
 
   def run(self):
-    egg_info_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), 'hybrid_rcc.egg-info'
-    )
-    if not os.path.exists(egg_info_path):
-      os.mkdir(egg_info_path)
-    shutil.copy2(
-        os.path.join(os.path.dirname(os.path.abspath(__file__)), 'LICENSE'),
-        os.path.join(egg_info_path, 'LICENSE'),
-    )
+    self.run_command('build_src')
     egg_info.run(self)
 
 
