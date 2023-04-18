@@ -27,7 +27,7 @@ _THIRD_PARTY = '_third_party_'
 
 
 def _install(cmd, args):
-  if !os.path.exists(_THIRD_PARTY):
+  if not os.path.exists(_THIRD_PARTY):
     os.mkdir(_THIRD_PARTY)
     for library, url in cpp_libraries.items():
       subprocess.check_call(f'wget -O {_THIRD_PARTY}/{library}.zip {url}'.split())
