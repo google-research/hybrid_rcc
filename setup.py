@@ -23,17 +23,19 @@ cpp_libraries = {
     'pcg_random': 'https://www.pcg-random.org/downloads/pcg-cpp-0.98.zip',
 }
 
-_THIRD_PARTY = 'third_party'
+_THIRD_PARTY = '_third_party_'
 
 
 def _install(cmd, args):
   if not os.path.exists(_THIRD_PARTY):
     os.mkdir(_THIRD_PARTY)
     for library, url in cpp_libraries.items():
-      subprocess.check_call(f'wget -O {_THIRD_PARTY}/{library}.zip {url}'.split())
+      subprocess.check_call(
+          f'wget -O {_THIRD_PARTY}/{library}.zip {url}'.split()
+      )
       with zipfile.ZipFile(f'{_THIRD_PARTY}/{library}.zip', 'r') as f:
         f.extractall(_THIRD_PARTY)
-  print(cmd, os.listdir(_THIRD_PARTY))
+  print(os.listdir(_THIRD_PARTY))
   cmd(*args)
   shutil.rmtree(_THIRD_PARTY)
 
@@ -52,10 +54,18 @@ class DevelopCommand(develop):
 
 
 class EggInfoCommand(egg_info):
-  """Installation Command."""
+  """EggInfo Command."""
 
   def run(self):
-#    _install(egg_info.run, [self])
+    egg_info_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 'hybrid_rcc.egg-info'
+    )
+    if not os.path.exists(egg_info_path):
+      os.mkdir(egg_info_path)
+    shutil.copy2(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), 'LICENSE'),
+        os.path.join(egg_info_path, 'LICENSE'),
+    )
     egg_info.run(self)
 
 
@@ -77,7 +87,6 @@ setup(
     ext_modules=[hybrid_rcc_module],
     cmdclass={
         'install': InstallCommand,
-        # 'develop': DevelopCommand,
         'egg_info': EggInfoCommand,
     },
     install_requires=[
