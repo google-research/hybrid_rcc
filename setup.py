@@ -57,7 +57,7 @@ class EggInfoCommand(egg_info):
   """EggInfo Command."""
 
   def run(self):
-    self.run_command('build_src')
+    self.run_command('install')
     egg_info.run(self)
 
 
