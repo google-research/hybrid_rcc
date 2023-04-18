@@ -5,6 +5,7 @@ import subprocess
 import zipfile
 
 from setuptools import setup, Extension
+from setuptools.command import build_ext
 
 cpp_libraries = {
     'eigen': (
@@ -16,7 +17,7 @@ cpp_libraries = {
 _THIRD_PARTY = '_third_party_'
 
 
-class BuildExtCommand(build_ext):
+class BuildExtCommand(build_ext.build_ext):
   def initialize_options(self):
       if not os.path.exists(_THIRD_PARTY):
         os.mkdir(_THIRD_PARTY)
