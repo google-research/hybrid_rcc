@@ -4,14 +4,7 @@ import shutil
 import subprocess
 import zipfile
 
-from setuptools import setup
-
-try:
-  from pybind11.setup_helpers import Pybind11Extension, build_ext
-except ImportError:
-  print('Installation requires pybind11')
-  subprocess.check_call('pip install pybind11'.split())
-  from pybind11.setup_helpers import Pybind11Extension, build_ext
+from setuptools import setup, Extension
 
 cpp_libraries = {
     'eigen': (
@@ -35,31 +28,37 @@ class BuildExtCommand(build_ext):
             f.extractall(_THIRD_PARTY)
       super().initialize_options()
 
+  def finalize_options(self):
+      from pybind11.setup_helpers import Pybind11Extension
+      self.distribution.ext_modules[:] = [
+        Pybind11Extension(
+          'hybrid_rcc',
+          [str(fname) for fname in pathlib.Path('src').rglob('*.cc')],
+          include_dirs=[
+              'src',
+              f'{_THIRD_PARTY}/eigen-3.4.0',
+              f'{_THIRD_PARTY}/pcg-cpp-0.98',
+          ],
+          extra_compile_args=['-O3'],
+        )
+      ]
+      super().finalize_options()
+
   def build_extensions(self):
     super().build_extensions()  
     shutil.rmtree(_THIRD_PARTY)
-
-hybrid_rcc_module = Pybind11Extension(
-    'hybrid_rcc',
-    [str(fname) for fname in pathlib.Path('src').rglob('*.cc')],
-    include_dirs=[
-        'src',
-        f'{_THIRD_PARTY}/eigen-3.4.0',
-        f'{_THIRD_PARTY}/pcg-cpp-0.98',
-    ],
-    extra_compile_args=['-O3'],
-)
 
 setup(
     name='hybrid_rcc',
     version=0.1,
     author='Noureldin Yosri',
-    ext_modules=[hybrid_rcc_module],
+    ext_modules=[Extension('', [])],
     cmdclass={
         'build_ext': BuildExtCommand,
     },
     install_requires=[
         'numpy',
         'scipy',
+        'pybind11',
     ],
 )
