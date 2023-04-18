@@ -5,6 +5,7 @@ import subprocess
 import zipfile
 
 from setuptools import setup
+from setuptools.command.bdist_wheel import bdist_wheel
 from setuptools.command.install import install
 from setuptools.command.develop import develop
 from setuptools.command.egg_info import egg_info
@@ -27,6 +28,8 @@ _THIRD_PARTY = '_third_party_'
 
 
 def _install(cmd, args):
+  if os.path.exists(_THIRD_PARTY):
+    return
   os.mkdir(_THIRD_PARTY)
   for library, url in cpp_libraries.items():
     subprocess.check_call(f'wget -O {_THIRD_PARTY}/{library}.zip {url}'.split())
@@ -56,6 +59,13 @@ class EggInfoCommand(egg_info):
     _install(egg_info.run, [self])
 
 
+class BdistWheelCommand(bdist_wheel):
+  """Installation Command."""
+
+  def run(self):
+    _install(bdist_wheel.run, [self])
+
+
 hybrid_rcc_module = Pybind11Extension(
     'hybrid_rcc',
     [str(fname) for fname in pathlib.Path('src').rglob('*.cc')],
@@ -76,6 +86,7 @@ setup(
         'install': InstallCommand,
         'develop': DevelopCommand,
         'egg_info': EggInfoCommand,
+        'bdist_wheel': BdistWheelCommand,
     },
     install_requires=[
         'numpy',
