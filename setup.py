@@ -36,9 +36,9 @@ class BuildExtCommand(build_ext):
             f.extractall(_THIRD_PARTY)
       super().initialize_options()
 
-  def finalize_options(self):
+  def build_extensions(self):
+    super().build_extensions()  
     shutil.rmtree(_THIRD_PARTY)
-    super().finalize_options()  
 
 hybrid_rcc_module = Pybind11Extension(
     'hybrid_rcc',
