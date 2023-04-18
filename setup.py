@@ -34,6 +34,7 @@ class BuildExtCommand(build_ext):
           )
           with zipfile.ZipFile(f'{_THIRD_PARTY}/{library}.zip', 'r') as f:
             f.extractall(_THIRD_PARTY)
+      super().initialize_options()
 
   def finalize_options(self):
     shutil.rmtree(_THIRD_PARTY)
