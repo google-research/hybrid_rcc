@@ -5,7 +5,7 @@ import subprocess
 import zipfile
 
 from setuptools import setup
-from distutils.command.install import install
+import setuptools.command.build_ext
 
 try:
   from pybind11.setup_helpers import Pybind11Extension
@@ -24,26 +24,20 @@ cpp_libraries = {
 _THIRD_PARTY = '_third_party_'
 
 
-def _install(cmd, args):
-  if not os.path.exists(_THIRD_PARTY):
-    os.mkdir(_THIRD_PARTY)
-    for library, url in cpp_libraries.items():
-      subprocess.check_call(
-          f'wget -O {_THIRD_PARTY}/{library}.zip {url}'.split()
-      )
-      with zipfile.ZipFile(f'{_THIRD_PARTY}/{library}.zip', 'r') as f:
-        f.extractall(_THIRD_PARTY)
-  print(os.listdir(_THIRD_PARTY))
-  cmd(*args)
-  shutil.rmtree(_THIRD_PARTY)
+class BuildExtCommand(setuptools.command.build_ext.build_ext):
+  def initialize_options(self):
+      if not os.path.exists(_THIRD_PARTY):
+        os.mkdir(_THIRD_PARTY)
+        for library, url in cpp_libraries.items():
+          subprocess.check_call(
+              f'wget -O {_THIRD_PARTY}/{library}.zip {url}'.split()
+          )
+          with zipfile.ZipFile(f'{_THIRD_PARTY}/{library}.zip', 'r') as f:
+            f.extractall(_THIRD_PARTY)
 
-
-class InstallCommand(install):
-  """Installation Command."""
-  def run(self):
-    # _install(install.do_egg_install, [self])
-    _install(distutils_install.run, [self])
-
+  def finalize_options(self):
+    shutil.rmtree(_THIRD_PARTY)
+  
 
 hybrid_rcc_module = Pybind11Extension(
     'hybrid_rcc',
@@ -62,7 +56,7 @@ setup(
     author='Noureldin Yosri',
     ext_modules=[hybrid_rcc_module],
     cmdclass={
-        'install': InstallCommand,
+        'build_ext': BuildExtCommand,
     },
     install_requires=[
         'numpy',
