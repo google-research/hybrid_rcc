@@ -5,7 +5,6 @@ import subprocess
 import zipfile
 
 from setuptools import setup
-from setuptools.command.bdist_wheel import bdist_wheel
 from setuptools.command.install import install
 from setuptools.command.develop import develop
 from setuptools.command.egg_info import egg_info
@@ -59,12 +58,6 @@ class EggInfoCommand(egg_info):
     _install(egg_info.run, [self])
 
 
-class BdistWheelCommand(bdist_wheel):
-  """Installation Command."""
-
-  def run(self):
-    _install(bdist_wheel.run, [self])
-
 
 hybrid_rcc_module = Pybind11Extension(
     'hybrid_rcc',
@@ -86,7 +79,6 @@ setup(
         'install': InstallCommand,
         'develop': DevelopCommand,
         'egg_info': EggInfoCommand,
-        'bdist_wheel': BdistWheelCommand,
     },
     install_requires=[
         'numpy',
