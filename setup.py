@@ -78,7 +78,7 @@ setup(
     cmdclass={
         'install': InstallCommand,
         # 'develop': DevelopCommand,
-        # 'egg_info': EggInfoCommand,
+        'egg_info': EggInfoCommand,
     },
     install_requires=[
         'numpy',
