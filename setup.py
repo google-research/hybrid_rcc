@@ -33,6 +33,7 @@ def _install(cmd, args):
       subprocess.check_call(f'wget -O {_THIRD_PARTY}/{library}.zip {url}'.split())
       with zipfile.ZipFile(f'{_THIRD_PARTY}/{library}.zip', 'r') as f:
         f.extractall(_THIRD_PARTY)
+  print(os.listdir(_THIRD_PARTY))
   cmd(*args)
   shutil.rmtree(_THIRD_PARTY)
 
@@ -76,8 +77,8 @@ setup(
     ext_modules=[hybrid_rcc_module],
     cmdclass={
         'install': InstallCommand,
-        'develop': DevelopCommand,
-        'egg_info': EggInfoCommand,
+        # 'develop': DevelopCommand,
+        # 'egg_info': EggInfoCommand,
     },
     install_requires=[
         'numpy',
