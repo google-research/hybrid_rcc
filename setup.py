@@ -8,11 +8,11 @@ from setuptools import setup
 import setuptools.command.build_ext
 
 try:
-  from pybind11.setup_helpers import Pybind11Extension
+  from pybind11.setup_helpers import Pybind11Extension, build_ext
 except ImportError:
   print('Installation requires pybind11')
   subprocess.check_call('pip install pybind11'.split())
-  from pybind11.setup_helpers import Pybind11Extension
+  from pybind11.setup_helpers import Pybind11Extension, build_ext
 
 cpp_libraries = {
     'eigen': (
@@ -24,7 +24,7 @@ cpp_libraries = {
 _THIRD_PARTY = '_third_party_'
 
 
-class BuildExtCommand(setuptools.command.build_ext.build_ext):
+class BuildExtCommand(build_ext):
   def initialize_options(self):
       if not os.path.exists(_THIRD_PARTY):
         os.mkdir(_THIRD_PARTY)
@@ -37,7 +37,7 @@ class BuildExtCommand(setuptools.command.build_ext.build_ext):
 
   def finalize_options(self):
     shutil.rmtree(_THIRD_PARTY)
-  
+    super().finalize_options()  
 
 hybrid_rcc_module = Pybind11Extension(
     'hybrid_rcc',
