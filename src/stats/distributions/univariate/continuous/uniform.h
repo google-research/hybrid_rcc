@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef THIRD_PARTY_HYBRID_RCC_STATS_DISTRIBUTIONS_UNIVARIATE_CONTINUOUS_UNIFORM_H_
-#define THIRD_PARTY_HYBRID_RCC_STATS_DISTRIBUTIONS_UNIVARIATE_CONTINUOUS_UNIFORM_H_
+#ifndef THIRD_PARTY_HYBRID_RCC_SRC_STATS_DISTRIBUTIONS_UNIVARIATE_CONTINUOUS_UNIFORM_H_
+#define THIRD_PARTY_HYBRID_RCC_SRC_STATS_DISTRIBUTIONS_UNIVARIATE_CONTINUOUS_UNIFORM_H_
 
 #include <algorithm>
 #include <cmath>
@@ -95,4 +95,4 @@ class Uniform : public ProbabilityDistribution<ContinuousSingleVariable> {
   double entropy() const override { return std::log(upper_end_ - lower_end_); }
 };
 }  // namespace stats::univariates
-#endif  // THIRD_PARTY_HYBRID_RCC_STATS_DISTRIBUTIONS_UNIVARIATE_CONTINUOUS_UNIFORM_H_
+#endif  // THIRD_PARTY_HYBRID_RCC_SRC_STATS_DISTRIBUTIONS_UNIVARIATE_CONTINUOUS_UNIFORM_H_

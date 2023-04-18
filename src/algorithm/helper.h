@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef THIRD_PARTY_HYBRID_RCC_ALGORITHM_HELPER_H_
-#define THIRD_PARTY_HYBRID_RCC_ALGORITHM_HELPER_H_
+#ifndef THIRD_PARTY_HYBRID_RCC_SRC_ALGORITHM_HELPER_H_
+#define THIRD_PARTY_HYBRID_RCC_SRC_ALGORITHM_HELPER_H_
 
 #include <math.h>
 
@@ -145,4 +145,4 @@ inline Eigen::ArrayXd linspace(double s, double e, int m) {
 
 Eigen::IOFormat eigen_format();
 }  // namespace rcc
-#endif  // THIRD_PARTY_HYBRID_RCC_ALGORITHM_HELPER_H_
+#endif  // THIRD_PARTY_HYBRID_RCC_SRC_ALGORITHM_HELPER_H_

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef THIRD_PARTY_HYBRID_RCC_ALGORITHM_REVERSE_CHANNEL_H_
-#define THIRD_PARTY_HYBRID_RCC_ALGORITHM_REVERSE_CHANNEL_H_
+#ifndef THIRD_PARTY_HYBRID_RCC_SRC_ALGORITHM_REVERSE_CHANNEL_H_
+#define THIRD_PARTY_HYBRID_RCC_SRC_ALGORITHM_REVERSE_CHANNEL_H_
 
 #include <math.h>
 
@@ -330,4 +330,4 @@ std::tuple<Eigen::ArrayXd, int, int> sample_gaussian(
 }
 }  // namespace algorithm
 }  // namespace rcc
-#endif  // THIRD_PARTY_HYBRID_RCC_ALGORITHM_REVERSE_CHANNEL_H_
+#endif  // THIRD_PARTY_HYBRID_RCC_SRC_ALGORITHM_REVERSE_CHANNEL_H_

@@ -1,5 +1,5 @@
-#ifndef THIRD_PARTY_HYBRID_RCC_PY_INTERFACE_H_
-#define THIRD_PARTY_HYBRID_RCC_PY_INTERFACE_H_
+#ifndef THIRD_PARTY_HYBRID_RCC_SRC_PY_INTERFACE_H_
+#define THIRD_PARTY_HYBRID_RCC_SRC_PY_INTERFACE_H_
 
 #include <cstdint>
 #include <sstream>
@@ -64,4 +64,4 @@ VecType decode_gaussian_hybrid(SamplingOutput h, VecType p_mean, VecType p_std);
 }  // namespace rcc::interface
 
 void AddModules(pybind11::module &m);
-#endif  // THIRD_PARTY_HYBRID_RCC_PY_INTERFACE_H_
+#endif  // THIRD_PARTY_HYBRID_RCC_SRC_PY_INTERFACE_H_

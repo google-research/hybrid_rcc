@@ -1,4 +1,8 @@
 # Reverse Channel Coding Library
+[TOC]
+
+
+## Introduction
 The library contains two main components:
 
 - A statistics module built around [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page).
@@ -15,4 +19,9 @@ The library contains two main components:
 
 ```
 
+## Installation
+
+```shell
+pip install git+https://github.com/google-research/hybrid_rcc
+```
 **Note: This is not an officially supported Google product.**
