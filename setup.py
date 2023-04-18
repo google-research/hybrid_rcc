@@ -23,7 +23,7 @@ cpp_libraries = {
     'pcg_random': 'https://www.pcg-random.org/downloads/pcg-cpp-0.98.zip',
 }
 
-_THIRD_PARTY = '_third_party_'
+_THIRD_PARTY = 'third_party'
 
 
 def _install(cmd, args):
@@ -33,7 +33,7 @@ def _install(cmd, args):
       subprocess.check_call(f'wget -O {_THIRD_PARTY}/{library}.zip {url}'.split())
       with zipfile.ZipFile(f'{_THIRD_PARTY}/{library}.zip', 'r') as f:
         f.extractall(_THIRD_PARTY)
-  print(os.listdir(_THIRD_PARTY))
+  print(cmd, os.listdir(_THIRD_PARTY))
   cmd(*args)
   shutil.rmtree(_THIRD_PARTY)
 
