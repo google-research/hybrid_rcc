@@ -55,8 +55,8 @@ class EggInfoCommand(egg_info):
   """Installation Command."""
 
   def run(self):
-    _install(egg_info.run, [self])
-
+#    _install(egg_info.run, [self])
+    egg_info.run(self)
 
 
 hybrid_rcc_module = Pybind11Extension(
