@@ -62,9 +62,11 @@ setup(
     setup_requires=[
         'numpy',
         'pybind11',        
+        'setuptools-git',
     ],
     install_requires=[
         'numpy',
         'scipy',
+        'setuptools-git',
     ],
 )
