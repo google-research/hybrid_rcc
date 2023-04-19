@@ -55,8 +55,8 @@ setup(
     version=0.1,
     author='Noureldin Yosri',
     ext_modules=[Extension('', [])],
-    packages=['hybrid_rcc'],
-    package_data={"hybrid_rcc": ["src/py/hybrid_rcc.pyi"]},
+    packages=['src/py'],
+    package_data={"src/py": ["src/py/hybrid_rcc.pyi"]},
     cmdclass={
         'build_ext': BuildExtCommand,
     },
