@@ -61,6 +61,7 @@ setup(
         'build_ext': BuildExtCommand,
     },
     setup_requires=[
+        'numpy',
         'pybind11',        
     ],
     install_requires=[
