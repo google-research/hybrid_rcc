@@ -55,6 +55,7 @@ setup(
     version=0.1,
     author='Noureldin Yosri',
     ext_modules=[Extension('', [])],
+    include_package_data=True,
     cmdclass={
         'build_ext': BuildExtCommand,
     },
