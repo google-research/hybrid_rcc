@@ -54,7 +54,7 @@ setup(
     name='hybrid_rcc',
     version=0.1,
     author='Noureldin Yosri',
-    ext_modules=[Extension('.', [])],
+    ext_modules=[Extension('', [])],
     packages=[''],
     package_data={'': ['*.pyi']},
     cmdclass={
