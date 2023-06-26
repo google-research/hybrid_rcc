@@ -1,12 +1,18 @@
 # Reverse Channel Coding Library
-[TOC]
+
+Table of Contents
+=================
+
+  * [Introduction](#introduction)
+  * [Installation](#installation)
 
 
 ## Introduction
-The library contains two main components:
+The library contains three main components:
 
 - A statistics module built around [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page).
 - An implementation of reverse channel coding algorithms discussed in ["Algorithms for the Communication of Samples"](https://research.google/pubs/pub51423/) L. Theis and N. Yosri.
+- A python interface for calling algorithms. please consult [hybrid_rcc_test.py](src/py/hybrid_rcc_test.py) for usage examples.
 
 ```
 @inproceedings{51423,

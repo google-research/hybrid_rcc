@@ -4,15 +4,8 @@ import shutil
 import subprocess
 import zipfile
 
-from setuptools import setup
-from setuptools.command.install import install
-
-try:
-  from pybind11.setup_helpers import Pybind11Extension
-except ImportError:
-  print('Installation requires pybind11')
-  subprocess.check_call('pip install pybind11'.split())
-  from pybind11.setup_helpers import Pybind11Extension
+from setuptools import Extension, setup
+from setuptools.command import build_ext
 
 cpp_libraries = {
     'eigen': (
@@ -21,35 +14,62 @@ cpp_libraries = {
     'pcg_random': 'https://www.pcg-random.org/downloads/pcg-cpp-0.98.zip',
 }
 
-
-class InstallCommand(install):
-  """Installation Command."""
-
-  def run(self):
-    os.mkdir('third_party')
-    for library, url in cpp_libraries.items():
-      subprocess.check_call(f'wget -O third_party/{library}.zip {url}'.split())
-      with zipfile.ZipFile(f'third_party/{library}.zip', 'r') as f:
-        f.extractall('third_party')
-    install.do_egg_install(self)
-    shutil.rmtree('third_party')
+_THIRD_PARTY = '_third_party_'
 
 
-hybrid_rcc_module = Pybind11Extension(
-    'hybrid_rcc',
-    [str(fname) for fname in pathlib.Path('src').rglob('*.cc')],
-    include_dirs=['src', 'third_party/eigen-3.4.0', 'third_party/pcg-cpp-0.98'],
-    extra_compile_args=['-O3'],
-)
+class BuildExtCommand(build_ext.build_ext):
+
+  def initialize_options(self):
+    if not os.path.exists(_THIRD_PARTY):
+      os.mkdir(_THIRD_PARTY)
+      for library, url in cpp_libraries.items():
+        subprocess.check_call(
+            f'wget -O {_THIRD_PARTY}/{library}.zip {url}'.split()
+        )
+        with zipfile.ZipFile(f'{_THIRD_PARTY}/{library}.zip', 'r') as f:
+          f.extractall(_THIRD_PARTY)
+    super().initialize_options()
+
+  def finalize_options(self):
+    from pybind11.setup_helpers import Pybind11Extension
+
+    self.distribution.ext_modules[:] = [
+        Pybind11Extension(
+            'hybrid_rcc',
+            [str(fname) for fname in pathlib.Path('src').rglob('*.cc')],
+            include_dirs=[
+                'src',
+                f'{_THIRD_PARTY}/eigen-3.4.0',
+                f'{_THIRD_PARTY}/pcg-cpp-0.98',
+            ],
+            extra_compile_args=['-O3'],
+        )
+    ]
+    super().finalize_options()
+
+  def build_extensions(self):
+    super().build_extensions()
+    shutil.rmtree(_THIRD_PARTY)
+
 
 setup(
     name='hybrid_rcc',
     version=0.1,
     author='Noureldin Yosri',
-    ext_modules=[hybrid_rcc_module],
-    cmdclass={'install': InstallCommand},
+    ext_modules=[Extension('', [])],
+    data_files=[('hybrid_rcc', ['src/py/hybrid_rcc.pyi'])],
+    include_package_data=True,
+    cmdclass={
+        'build_ext': BuildExtCommand,
+    },
+    setup_requires=[
+        'numpy',
+        'pybind11',
+        'setuptools-git',
+    ],
     install_requires=[
         'numpy',
         'scipy',
+        'setuptools-git',
     ],
 )
